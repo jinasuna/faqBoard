@@ -26,9 +26,7 @@ public class FaqController {
     @PostMapping("/faqList")
     public Faq createFaq(@RequestBody final Faq faq, final UriComponentsBuilder uriComponentsBuilder) {
         System.err.println("FaqController createFaq");
-        Faq res = new Faq();
-        res = faqService.createFaq(faq);
-        return res;
+        return faqService.createFaq(faq);
     }
 
 //    @PostMapping("/faqSave")
@@ -56,7 +54,7 @@ public class FaqController {
     }
 
     //카테고리 제목 내용 수정일
-    @PostMapping("/update")
+    @PostMapping("/update/{id}")
     public String updateFaq(@PathVariable("id") long id,
                             @RequestBody final Faq faq,
                             final UriComponentsBuilder uriComponentsBuilder) {

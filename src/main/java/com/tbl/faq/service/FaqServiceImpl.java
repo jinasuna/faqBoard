@@ -41,7 +41,7 @@ public class FaqServiceImpl implements FaqService {
         System.err.println("FaqService createFaq");
         System.out.println(faq.toString());
         Faq res = faqRepository.save(faq);
-        System.out.println(res.toString());
+        System.out.println(res);
         return res;
     }
 
