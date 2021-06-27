@@ -16,7 +16,7 @@ public class Faq {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "faq_id")
-    private Long id;
+    private int id;
 
     @Column(name = "faq_ctgr_id")
     private int categoryId;
@@ -43,7 +43,7 @@ public class Faq {
     private boolean actYn;
 
     @Builder
-    public Faq(Long id, int categoryId, boolean openType, String subject, String content,
+    public Faq(int id, int categoryId, boolean openType, String subject, String content,
                int viewCnt, boolean actYn){
         super();
         this.id = id;

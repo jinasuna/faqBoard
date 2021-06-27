@@ -10,15 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface FaqService {
-    public List<Faq> findAll();
-    public Optional<Faq> findOne(Long id);
-    public Faq createFaq(Faq faq);
-    public void updateFaq(long id, Faq faq);
-    public void deleteFaq(long id);
-
     public void saveFaq(Faq faq);
-    //카테고리 제목 내용 수정일
-    public void updateFaq(long id, int categoryId, String subject, String content, Date modDate);
+    //public Faq createFaq(Faq faq);
+    public List<Faq> findAll();
+    public Optional<Faq> findOne(int id);
+    public void updateFaq(int id, Faq faq);
+    public void deleteFaq(int id);
     public List<Faq> findAllByOrderByDateAsc();
     public List<Faq> findAllByOrderByDateDesc();
 }

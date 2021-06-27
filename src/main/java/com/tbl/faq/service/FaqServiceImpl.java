@@ -20,6 +20,20 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
+    public void saveFaq(Faq faq) {
+        faqRepository.save(faq);
+    }
+
+//    @Override
+//    public Faq createFaq(Faq faq) {
+//        System.err.println("FaqService createFaq");
+//        System.out.println(faq.toString());
+//        Faq res = faqRepository.save(faq);
+//        System.out.println(res);
+//        return res;
+//    }
+
+    @Override
     public List<Faq> findAll(){
         List<Faq> list = faqRepository.findAll();
 
@@ -30,27 +44,18 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public Optional<Faq> findOne(Long id){
-        Optional<Faq> faq = faqRepository.findById(Math.toIntExact(id));
+    public Optional<Faq> findOne(int id){
+        Optional<Faq> faq = faqRepository.findById(id);
         System.out.println(faq);
         return faq;
     }
 
     @Override
-    public Faq createFaq(Faq faq) { // API test 할 때 어떤 데이터를 넘겨줘야 하지? 어떻게 호출해서 솩인할수 있을까?
-        System.err.println("FaqService createFaq");
-        System.out.println(faq.toString());
-        Faq res = faqRepository.save(faq);
-        System.out.println(res);
-        return res;
-    }
-
-    @Override
-    public void updateFaq(long id, Faq faq){
+    public void updateFaq(int id, Faq faq){
         System.err.println("FaqService faqService");
         System.out.println(faq.toString());
         //카테고리 제목 내용 수정일
-        faqRepository.findById((int) id).map( faqs -> {
+        faqRepository.findById(id).map( faqs -> {
             faqs.setCategoryId(faq.getCategoryId());
             faqs.setSubject(faq.getSubject());
             faqs.setContent(faq.getContent());
@@ -63,30 +68,9 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public void deleteFaq(long id) {
+    public void deleteFaq(int id) {
         System.err.println("FaqService deleteFaq");
-        faqRepository.deleteById((int) id);
-    }
-/////////////////////
-    @Override
-    public void saveFaq(Faq faq) {
-        faqRepository.save(faq);
-    }
-    //카테고리 제목 내용 수정일
-//    @Override
-//    public void saveFaq(int categoryId, String subject, String content, Date modDate) {
-//        faqRepository.save(updated);
-//    }
-
-    //카테고리 제목 내용 수정일
-    @Override
-    public void updateFaq(long id, int categoryId, String subject, String content, Date modDate) {
-        Faq updated = faqRepository.findById((int) id).get();
-        updated.setCategoryId(categoryId);
-        updated.setSubject(subject);
-        updated.setContent(content);
-        updated.setModDate(modDate);
-        faqRepository.save(updated);
+        faqRepository.deleteById(id);
     }
 
     @Override
