@@ -22,8 +22,7 @@ public class FaqController {
     public void setFaqService(FaqService faqService) {
         this.faqService = faqService;
     }
-
-    // 컴포넌트빌더 쓰는방식..뭔가 이상하고..어렵다..더 알고나서 써야할듯
+// 컴포넌트빌더 쓰는방식..뭔가 이상하고..어렵다..더 알고나서 써야할듯
 //    @PostMapping("/faqList")
 //    public Faq createFaq(@RequestBody final Faq faq, final UriComponentsBuilder uriComponentsBuilder) {
 //        System.err.println("FaqController createFaq");
@@ -37,14 +36,14 @@ public class FaqController {
         faqService.saveFaq(faq);
     }
 
-    // list 조회
+    // List 조회
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Faq> getFaqList() {
         System.err.println("FaqController getFqaList");
         return faqService.findAll();
     }
 
-    // 단건 조회
+    // Read 단건 조회
     @GetMapping(path = "/faqList/{id}")
     public Optional<Faq> getOneFaq(@PathVariable("id") int id) {
         System.err.println("FaqController getOneFaq");

@@ -1,0 +1,38 @@
+###  list 조회
+GET http://localhost:8080/api/
+Accept: application/json
+
+### 단건 조회
+GET http://localhost:8080/api/
+Accept: application/json
+
+### createFaq 생성
+POST http://localhost:8080/api/faqSave
+Accept: application/json
+Content-Type: application/json
+
+< ./save.json
+
+### createFaq 생성 - id까지 넣어보기 => 안된다..이거는 메서드를 새로 만들어 주던지 해야 할 듯
+POST http://localhost:8080/api/faqSave
+Accept: application/json
+Content-Type: application/json
+
+< ./idsave.json
+
+### updateFaq 수정
+POST http://localhost:8080/api/updateFaq/6
+Accept: application/json
+Content-Type: application/json
+
+< ./update.json
+
+### updateFaq 수정 - id 수정해볼까? => 이것도 안됨 메서드를 새로 만들어 주던지 해야 할 듯
+POST http://localhost:8080/api/updateFaq/10
+Accept: application/json
+Content-Type: application/json
+
+< ./updateid.json
+
+### deleteFaq 삭제
+DELETE http://localhost:8080/api/deleteFaq/4

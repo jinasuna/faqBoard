@@ -1,5 +1,0 @@
-GET http://localhost:8080/api/
-
-### POST는 header에 response Accept값을 명시해 놓는게 좋다
-POST https://httpbin.org/get?show_env=1
-Accept: application/json
