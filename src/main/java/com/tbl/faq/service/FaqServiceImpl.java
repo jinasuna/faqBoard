@@ -17,12 +17,10 @@ public class FaqServiceImpl implements FaqService {
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
-    private final JPAQueryFactory queryFactory;
-
     private FaqRepository faqRepository;
 
     public FaqServiceImpl(EntityManager em) {
-        queryFactory = new JPAQueryFactory(em);
+
     }
 
     @Autowired
@@ -85,21 +83,15 @@ public class FaqServiceImpl implements FaqService {
     public List<Faq> searchFaq(String keyword) {
         String jpql = "select f from Faq f where f.subject like '%" + keyword + "'%''";
         tx.begin();
-        try{ // 1.
-            List<Faq> result1 = em.createQuery(jpql, Faq.class)
+        try{
+            List<Faq> result = em.createQuery(jpql, Faq.class)
                     .getResultList();
             // 이 받아온 값을 어떻게 할지 생각해 보자
-            for (Faq faq : result1){
+            for (Faq faq : result){
                 System.out.println("faq.subject : " + faq.getSubject() + "faq.content : " + faq.getContent());
             }
             tx.commit();
-            return result1;
-
-            // 2.query-dsl을 하고싶었으나..
-
-//            List<Faq> result2 = queryFactory
-//                    .select()
-
+            return result;
         }catch(Exception e){
             tx.rollback();
         }finally {
