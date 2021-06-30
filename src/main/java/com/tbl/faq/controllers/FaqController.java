@@ -22,6 +22,7 @@ public class FaqController {
     public void setFaqService(FaqService faqService) {
         this.faqService = faqService;
     }
+
 // 컴포넌트빌더 쓰는방식..뭔가 이상하고..어렵다..더 알고나서 써야할듯
 //    @PostMapping("/faqList")
 //    public Faq createFaq(@RequestBody final Faq faq, final UriComponentsBuilder uriComponentsBuilder) {
@@ -37,7 +38,7 @@ public class FaqController {
     }
 
     // List 조회
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping("/")
     public List<Faq> getFaqList() {
         System.err.println("FaqController getFqaList");
         return faqService.findAll();
@@ -61,16 +62,20 @@ public class FaqController {
     }
 
     // Delete
-    // 삭제 서비스 메서드
     @DeleteMapping("/deleteFaq/{id}")
     public void deleteItem(@PathVariable("id") int id) {
         System.err.println("FaqController deleteFaq");
         faqService.deleteFaq(id);
     }
 
-    // ->viewcnt처리해야 함
+    // Search
+    @GetMapping("searchFaq/{keyword}")
+    public List<Faq> searchFaq(@PathVariable("keyword") String keyword){
+        System.err.println("FaqController searchFaq");
+        return faqService.searchFaq(keyword);
+    }
+
     // -> 정렬 처리해야 함(오름차순+내림차순)
-    // 검색 기능 넣어야 함
 
     // 좀 더 익숙한 방식으로 다시 해보자
     // 정렬 보여주는 리스트..여야 하는데 뭔지도모르는 index를 리턴하네 문자열로 ㅜㅜ

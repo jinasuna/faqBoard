@@ -1,6 +1,5 @@
 package com.tbl.faq.service;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.tbl.faq.entity.Faq;
 import com.tbl.faq.repository.FaqRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +12,13 @@ import java.util.Optional;
 @Service
 public class FaqServiceImpl implements FaqService {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful-unit");
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
     private FaqRepository faqRepository;
 
     public FaqServiceImpl(EntityManager em) {
-
     }
 
     @Autowired
@@ -78,26 +76,22 @@ public class FaqServiceImpl implements FaqService {
         faqRepository.deleteById(id);
     }
 
-    // select * from tbl_faq where sbj like '출%';
+    // select * from tbl_faq where sbj like '%출%';
     @Override
     public List<Faq> searchFaq(String keyword) {
-        String jpql = "select f from Faq f where f.subject like '%" + keyword + "'%''";
+        String jpql = "select f from Faq f where f.subject like '%" + keyword + "%'";
         tx.begin();
-        try{
+        try{ // 1.
+            System.err.println("FaqService faqService");
             List<Faq> result = em.createQuery(jpql, Faq.class)
                     .getResultList();
-            // 이 받아온 값을 어떻게 할지 생각해 보자
-            for (Faq faq : result){
-                System.out.println("faq.subject : " + faq.getSubject() + "faq.content : " + faq.getContent());
-            }
             tx.commit();
             return result;
         }catch(Exception e){
             tx.rollback();
-        }finally {
-            em.close();
-        }
-        emf.close();
+        }//finally {
+        //em.close();
+        //} // faqCRUD.http로 반복적으로 테스트 하기 위해 EntityManager를 닫지 않음
         return null;
     }
 

@@ -36,3 +36,7 @@ Content-Type: application/json
 
 ### deleteFaq 삭제
 DELETE http://localhost:8080/api/deleteFaq/4
+
+### searchFaq 검색
+GET http://localhost:8080/api/searchFaq/출
+Accept: application/json
