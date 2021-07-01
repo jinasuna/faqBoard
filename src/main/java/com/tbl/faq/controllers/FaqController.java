@@ -98,10 +98,10 @@ public class FaqController {
         List<Faq> faqList = null;
         switch (sortDateMethod) {
             case "ASC": // 이걸 구분하려면
-                faqList = faqService.findAllByOrderByDateAsc();
+                faqList = faqService.sortFaqAsc();
                 break;
             case "DESC":
-                faqList = faqService.findAllByOrderByDateDesc();
+                faqList = faqService.sortFaqDesc();
                 break;
         }
         return faqList;

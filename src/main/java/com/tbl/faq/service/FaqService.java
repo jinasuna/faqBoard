@@ -18,7 +18,7 @@ public interface FaqService {
     public void updateFaq(int id, Faq faq);
     public void deleteFaq(int id);
     public List<Faq> searchFaq(String keyword);
-    public List<Faq> findAllByOrderByDateAsc();
-    public List<Faq> findAllByOrderByDateDesc();
+    public List<Faq> sortFaqAsc();
+    public List<Faq> sortFaqDesc();
 //    public void close();
 }

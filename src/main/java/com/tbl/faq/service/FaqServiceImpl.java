@@ -96,13 +96,13 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public List<Faq> findAllByOrderByDateAsc() {
-        return faqRepository.findAllByOrderByRegDateAsc();
+    public List<Faq> sortFaqAsc() {
+        return null;
     }
 
     @Override
-    public List<Faq> findAllByOrderByDateDesc() {
-        return faqRepository.findAllByOrderByRegDateDesc();
+    public List<Faq> sortFaqDesc() {
+        return null;
     }
 
 //    @Override
