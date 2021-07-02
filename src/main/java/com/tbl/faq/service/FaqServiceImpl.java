@@ -105,9 +105,4 @@ public class FaqServiceImpl implements FaqService {
         return null;
     }
 
-//    @Override
-//    public void close() {
-//        em.close();
-//        emf.close();
-//    }
 }
