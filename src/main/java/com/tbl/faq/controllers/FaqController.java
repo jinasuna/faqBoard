@@ -92,15 +92,14 @@ public class FaqController {
     // sort메서드
     private List<Faq> filterAndSort() {
         List<Faq> faqList = null;
-//        switch (sortDateMethod) {
-//            case "ASC":
-//                faqList = faqService.findAllByOrderByDateAsc();
-//                break;
-//            case "DESC":
-//                faqList = faqService.findAllByOrderByDateDesc();
-//                break;
-//        }
-        faqList = faqService.findByOrderByDateAsc();
+        switch (sortDateMethod) {
+            case "ASC": // 이걸 구분하려면
+                faqList = faqService.sortFaqAsc();
+                break;
+            case "DESC":
+                faqList = faqService.sortFaqDesc();
+                break;
+        }
         return faqList;
     }
 
