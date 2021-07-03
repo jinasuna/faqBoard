@@ -3,6 +3,7 @@ package com.tbl.faq.service;
 import com.tbl.faq.entity.Faq;
 import com.tbl.faq.repository.FaqRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
@@ -97,12 +98,14 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public List<Faq> sortFaqAsc() {
-        return null;
+        List<Faq> list = faqRepository.findAll(Sort.by(Sort.Direction.ASC, "regDate"));
+        return list;
     }
 
     @Override
     public List<Faq> sortFaqDesc() {
-        return null;
+        List<Faq> list = faqRepository.findAll(Sort.by(Sort.Direction.DESC, "regDate"));
+        return list;
     }
 
 }
