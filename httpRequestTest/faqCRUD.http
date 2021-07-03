@@ -1,5 +1,5 @@
-###  list 조회
-GET http://localhost:8080/api/
+###  list 조회(페이징 처리)
+GET http://localhost:8080/api/3
 Accept: application/json
 
 ### 단건 조회

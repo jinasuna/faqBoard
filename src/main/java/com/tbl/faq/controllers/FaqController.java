@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,11 +38,12 @@ public class FaqController {
         faqService.saveFaq(faq);
     }
 
+    // 의문. 페이징이 되었다 하더라도, 이 결과를 어떻게 확인하지? -> 여기서 url로 던져야지!
     // List 조회
-    @GetMapping("/")
-    public List<Faq> getFaqList() {
+    @GetMapping("/{page}")
+    public List<Faq> getFaqList(@PathVariable("page") @Min(0)Integer page) {
         System.err.println("FaqController getFqaList");
-        return faqService.findAll();
+        return faqService.getFaqList(page);
     }
 
     // Read 단건 조회
@@ -106,5 +108,4 @@ public class FaqController {
         }
         return faqList;
     }
-
 }
