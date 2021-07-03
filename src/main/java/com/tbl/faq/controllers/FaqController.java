@@ -17,6 +17,7 @@ import java.util.Optional;
 public class FaqController {
 
     private FaqService faqService;
+    // 기본 sort 설정은 오름차순
     private String sortDateMethod = "ASC";
 
     @Autowired
@@ -59,7 +60,6 @@ public class FaqController {
                             @RequestBody final Faq faq) {
         System.err.println("FaqController updateFaq");
         faqService.updateFaq(id,faq);
-        // return "redirect:/"; // List<Faq> getFaqList() 호출
         return faq;
     }
 
@@ -77,26 +77,22 @@ public class FaqController {
         return faqService.searchFaq(keyword);
     }
 
-    // -> 정렬 처리해야 함(오름차순+내림차순)
-
-    // 좀 더 익숙한 방식으로 다시 해보자
-    // 정렬 보여주는 리스트..여야 하는데 뭔지도모르는 index를 리턴하네 문자열로 ㅜㅜ
-    // sortChoose, filterAndSort 두 개를 거쳐서 알게된 정보로 model을 설정한다,,?
-    @GetMapping("/faqList")
-    public String list(Model model) {
-        List<Faq> faqList = filterAndSort(); // string값을 넘겨줘야 하지 않을까?
-        model.addAttribute("faq", faqList);
-        model.addAttribute("sort", sortDateMethod);
-        return "index";
-    }
-
-    @GetMapping("/sort/{sortDate}") // 얘네 셋이서 어떻게 주고받아야 할까?
-    public String sortChoose(@PathVariable String sortDate) {
+    // 정렬 - 기본 : 오름차순
+    @GetMapping("/sortFaq/{sortDate}")
+    public void sortFaq(@PathVariable String sortDate) {
         sortDateMethod = sortDate;
-        return "redirect:/faqList";
+        sortList();
     }
 
-    private List<Faq> filterAndSort() {// string값을 넘겨줘야 하지 않을까?
+    @GetMapping("/")
+    public List<Faq> sortList() { // 리다이렉트 받을때 model에 아마도 sortDateMethod를 가져오는듯
+        //List<Faq> faqList = filterAndSort();
+        List<Faq> faqList = faqService.findByOrderByDateAsc();
+        return faqList;
+    }
+
+    // sort메서드
+    private List<Faq> filterAndSort() {
         List<Faq> faqList = null;
         switch (sortDateMethod) {
             case "ASC": // 이걸 구분하려면
