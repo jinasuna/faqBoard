@@ -3,21 +3,27 @@ package com.tbl.faq.service;
 import com.tbl.faq.entity.Faq;
 import com.tbl.faq.repository.FaqRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FaqServiceImpl implements FaqService {
 
+    private FaqRepository faqRepository;
+    private ModelMapper modelMapper;
+
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful-unit");
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
-
-    private FaqRepository faqRepository;
 
     public FaqServiceImpl(EntityManager em) {
     }
@@ -64,8 +70,7 @@ public class FaqServiceImpl implements FaqService {
             faqs.setContent(faq.getContent());
             faqs.setModDate(faq.getModDate());
             return faqRepository.save(faqs);
-        }).orElseGet(() -> {
-            // 이 로직을 이해해야해
+        }).orElseGet(() -> { // 없으면 지금 이 id로 새로 하나 만들어라
             faq.setId(id);
             return faqRepository.save(faq);
         });
@@ -108,4 +113,26 @@ public class FaqServiceImpl implements FaqService {
         return list;
     }
 
+    @Override @Transactional
+    public List<Faq> getFaqList(Integer page) {         // 보기를 원했던 페이지, 페이징할 갯수
+        Page<Faq> faqBoard = faqRepository.findAll(PageRequest.of(page, 10));
+
+        List<Faq> faqList = faqBoard.getContent().stream().map(faq ->
+                sourceToDestination(faq, new Faq())
+        ).collect(Collectors.toList());
+
+        return faqList;
+    }
+
+    @Override
+    public <R, T> T sourceToDestination(R source, T destinateion){
+        modelMapper.map(source, destinateion);
+        return destinateion;
+    }
+
+//    @Override
+//    public void close() {
+//        em.close();
+//        emf.close();
+//    }
 }

@@ -20,5 +20,7 @@ public interface FaqService {
     public List<Faq> searchFaq(String keyword);
     public List<Faq> sortFaqAsc();
     public List<Faq> sortFaqDesc();
+    public List<Faq> getFaqList(Integer page);
+    public <R, T> T sourceToDestination(R source, T destinateion);
 //    public void close();
 }
