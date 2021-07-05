@@ -3,9 +3,8 @@ package com.tbl.faq.controllers;
 import com.tbl.faq.entity.Faq;
 import com.tbl.faq.service.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+
 
 import javax.validation.constraints.Min;
 import java.util.Date;
