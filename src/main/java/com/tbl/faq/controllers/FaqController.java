@@ -86,8 +86,7 @@ public class FaqController {
 
     @GetMapping("/")
     public List<Faq> sortList() { // 리다이렉트 받을때 model에 아마도 sortDateMethod를 가져오는듯
-        //List<Faq> faqList = filterAndSort();
-        List<Faq> faqList = faqService.findByOrderByDateAsc();
+        List<Faq> faqList = filterAndSort();
         return faqList;
     }
 
