@@ -42,6 +42,10 @@ DELETE http://localhost:8080/api/deleteFaq/4
 GET http://localhost:8080/api/searchFaq/출
 Accept: application/json
 
+### sortFaq 정렬 - 기본 : DESC, sortFaq실행 후 : 기존값
+GET http://localhost:8080/api/
+Accept: application/json
+
 ### sortFaq 정렬
 GET http://localhost:8080/api/sortFaq/
 Accept: application/json
@@ -49,3 +53,5 @@ Accept: application/json
 ### 작업해야할 순서
 ### 1. entityManager bean문제 해결 - jean202소스 보면서 해결
 ### 2. 지금까지 했던 메서드들 chrome에서 띄워서 호출하고 개발자 도구로 request response 보기 (네트워크 탭)
+
+### 페이징

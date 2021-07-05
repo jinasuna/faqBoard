@@ -5,6 +5,7 @@ import com.tbl.faq.repository.FaqRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
@@ -102,12 +103,14 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public List<Faq> sortFaqAsc() {
-        return null;
+        List<Faq> list = faqRepository.findAll(Sort.by(Sort.Direction.ASC, "regDate"));
+        return list;
     }
 
     @Override
     public List<Faq> sortFaqDesc() {
-        return null;
+        List<Faq> list = faqRepository.findAll(Sort.by(Sort.Direction.DESC, "regDate"));
+        return list;
     }
 
     @Override @Transactional
