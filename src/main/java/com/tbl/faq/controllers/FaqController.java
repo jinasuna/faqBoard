@@ -24,6 +24,16 @@ public class FaqController {
     public void setFaqService(FaqService faqService) {
         this.faqService = faqService;
     }
+
+// Git test 하면서 이거 다시 없애기
+// 컴포넌트빌더 쓰는방식..뭔가 이상하고..어렵다..더 알고나서 써야할듯
+//    @PostMapping("/faqList")
+//    public Faq createFaq(@RequestBody final Faq faq, final UriComponentsBuilder uriComponentsBuilder) {
+//        System.err.println("FaqController createFaq");
+//        return faqService.createFaq(faq);
+//    }
+
+
     // Create
     @PostMapping("/faqSave")
     public void saveFaq(@RequestBody final Faq faq) {
@@ -74,12 +84,12 @@ public class FaqController {
     public List<Faq> sortFaq(@PathVariable String sortDate) {
         sortDateMethod = sortDate;
         System.out.println("sortFaq sortDateMethod : " + sortDateMethod);
-        List<Faq> faqList = sortList();
+        List<Faq> faqList = sortList(sortDateMethod);
         return faqList;
     }
 
     @GetMapping("/")
-    public List<Faq> sortList() {
+    public List<Faq> sortList(String sortDateMethod) { // 리다이렉트 받을때 model에 아마도 sortDateMethod를 가져오는듯
         List<Faq> faqList = filterAndSort();
         System.out.println("sortList sortDateMethod : " + sortDateMethod);
         return faqList;
@@ -97,4 +107,6 @@ public class FaqController {
         }
         return faqList;
     }
+
+    // 페이징
 }
