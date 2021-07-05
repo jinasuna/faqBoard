@@ -1,6 +1,6 @@
 
 ###  list 조회(페이징 처리)
-GET http://localhost:8080/api/3
+GET http://localhost:8080/api/0
 Accept: application/json
 
 ### 단건 조회
@@ -43,11 +43,11 @@ GET http://localhost:8080/api/searchFaq/출
 Accept: application/json
 
 ### sortFaq 정렬 - 기본 : DESC, sortFaq실행 후 : 기존값
-GET http://localhost:8080/api/
+GET http://localhost:8080/api/faqList
 Accept: application/json
 
 ### sortFaq 정렬
-GET http://localhost:8080/api/sortFaq/
+GET http://localhost:8080/api/sortFaq/ASC
 Accept: application/json
 
 ### 작업해야할 순서

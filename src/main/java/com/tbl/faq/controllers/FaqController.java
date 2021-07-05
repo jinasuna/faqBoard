@@ -87,7 +87,7 @@ public class FaqController {
         return faqList;
     }
 
-    @GetMapping("/")
+    @GetMapping("/faqList")
     public List<Faq> sortList(String sortDateMethod) { // 리다이렉트 받을때 model에 아마도 sortDateMethod를 가져오는듯
         List<Faq> faqList = filterAndSort();
         System.out.println("sortList sortDateMethod : " + sortDateMethod);
@@ -107,5 +107,4 @@ public class FaqController {
         return faqList;
     }
 
-    // 페이징
 }
