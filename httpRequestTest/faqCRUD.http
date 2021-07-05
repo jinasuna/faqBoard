@@ -47,7 +47,7 @@ GET http://localhost:8080/api/
 Accept: application/json
 
 ### sortFaq 정렬
-GET http://localhost:8080/api/sortFaq/
+GET http://localhost:8080/api/sortFaq/ASC
 Accept: application/json
 
 ### 작업해야할 순서
