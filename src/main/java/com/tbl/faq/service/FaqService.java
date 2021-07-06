@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface FaqService {
     public void saveFaq(Faq faq);
-    //public Faq createFaq(Faq faq);
     public List<Faq> findAll();
     public Optional<Faq> findOne(int id);
-    // public int updateViewCnt();
     public void updateFaq(int id, Faq faq);
     public void deleteFaq(int id);
     public List<Faq> searchFaq(String keyword);
