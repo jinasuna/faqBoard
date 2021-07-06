@@ -1,8 +1,11 @@
 package com.tbl.faq.controllers;
 
+import com.tbl.faq.config.ApplicationConfig;
 import com.tbl.faq.entity.Faq;
 import com.tbl.faq.service.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,6 +21,8 @@ public class FaqController {
     private FaqService faqService;
     // 기본 sort 설정은 오름차순
     private String sortDateMethod = "DESC";
+
+    ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
     @Autowired
     public void setFaqService(FaqService faqService) {
@@ -40,12 +45,11 @@ public class FaqController {
         faqService.saveFaq(faq);
     }
 
-    // 의문. 페이징이 되었다 하더라도, 이 결과를 어떻게 확인하지? -> 여기서 url로 던져야지!
     // List 조회
-    @GetMapping("/{page}")
-    public List<Faq> getFaqList(@PathVariable("page") @Min(0)Integer page) {
+    @GetMapping("/{page}/{size}")
+    public Object getFaqList(@PathVariable("page") Integer page, @PathVariable("size") Integer size) throws Exception{
         System.err.println("FaqController getFqaList");
-        return faqService.getFaqList(page);
+        return faqService.getFaqList(page, size);
     }
 
     // Read 단건 조회
@@ -106,5 +110,4 @@ public class FaqController {
         }
         return faqList;
     }
-
 }

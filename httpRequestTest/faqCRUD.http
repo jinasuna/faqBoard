@@ -1,6 +1,6 @@
 
 ###  list 조회(페이징 처리)
-GET http://localhost:8080/api/0
+GET http://localhost:8080/api/0/10
 Accept: application/json
 
 ### 단건 조회
@@ -51,7 +51,6 @@ GET http://localhost:8080/api/sortFaq/ASC
 Accept: application/json
 
 ### 작업해야할 순서
-### 1. entityManager bean문제 해결 - jean202소스 보면서 해결
 ### 2. 지금까지 했던 메서드들 chrome에서 띄워서 호출하고 개발자 도구로 request response 보기 (네트워크 탭)
 
 ### 페이징

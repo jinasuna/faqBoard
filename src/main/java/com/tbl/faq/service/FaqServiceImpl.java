@@ -1,7 +1,10 @@
 package com.tbl.faq.service;
 
 import com.tbl.faq.entity.Faq;
+import com.tbl.faq.entity.FaqResult;
 import com.tbl.faq.repository.FaqRepository;
+
+import com.tbl.faq.util.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +28,33 @@ public class FaqServiceImpl implements FaqService {
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
-    public FaqServiceImpl(EntityManager em) {
-    }
+    public FaqServiceImpl() {}
 
     @Autowired
-    public void setProductRepository(FaqRepository faqRepository) {
+    public FaqServiceImpl(EntityManager em, FaqRepository faqRepository, ModelMapper modelMapper) {
+        this.em = em;
         this.faqRepository = faqRepository;
+        this.modelMapper = modelMapper;
+    }
+
+    @Override @Transactional
+    public List<FaqResult> getFaqList(Integer page, Integer size) {
+        Page<Faq> faqBoard = faqRepository.findAll(PageRequest.of(page, size));
+        Validate.isTrue(!faqBoard.isEmpty(), "결과가 없습니다.");
+
+        List<FaqResult> faqList = faqBoard.getContent().stream().map(faq ->
+                sourceToDestination(faq, new FaqResult())
+        ).collect(Collectors.toList());
+
+        return faqList;
+    }
+
+    @Override
+    public <R, T> T sourceToDestination(R source, T destination){
+        System.out.println("source : " + source);
+        System.out.println("destination : " + destination);
+        modelMapper.map(source, destination);
+        return destination;
     }
 
     @Override
@@ -111,23 +135,6 @@ public class FaqServiceImpl implements FaqService {
     public List<Faq> sortFaqDesc() {
         List<Faq> list = faqRepository.findAll(Sort.by(Sort.Direction.DESC, "regDate"));
         return list;
-    }
-
-    @Override @Transactional
-    public List<Faq> getFaqList(Integer page) {         // 보기를 원했던 페이지, 페이징할 갯수
-        Page<Faq> faqBoard = faqRepository.findAll(PageRequest.of(page, 10));
-
-        List<Faq> faqList = faqBoard.getContent().stream().map(faq ->
-                sourceToDestination(faq, new Faq())
-        ).collect(Collectors.toList());
-
-        return faqList;
-    }
-
-    @Override
-    public <R, T> T sourceToDestination(R source, T destinateion){
-        modelMapper.map(source, destinateion);
-        return destinateion;
     }
 
 //    @Override
