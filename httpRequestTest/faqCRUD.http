@@ -14,7 +14,7 @@ Content-Type: application/json
 
 < ./save.json
 
-### createFaq 생성 - id까지 넣어보기 => 안된다..이거는 메서드를 새로 만들어 주던지 해야 할 듯
+### createFaq 생성
 POST http://localhost:8080/api/faqSave
 Accept: application/json
 Content-Type: application/json
@@ -49,8 +49,3 @@ Accept: application/json
 ### sortFaq 정렬
 GET http://localhost:8080/api/sortFaq/ASC
 Accept: application/json
-
-### 작업해야할 순서
-### 2. 지금까지 했던 메서드들 chrome에서 띄워서 호출하고 개발자 도구로 request response 보기 (네트워크 탭)
-
-### 페이징
