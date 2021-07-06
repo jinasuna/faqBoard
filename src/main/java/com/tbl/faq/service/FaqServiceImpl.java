@@ -87,14 +87,13 @@ public class FaqServiceImpl implements FaqService {
     public void updateFaq(int id, Faq faq){
         System.err.println("FaqService faqService");
         System.out.println(faq.toString());
-        //카테고리 제목 내용 수정일
         faqRepository.findById(id).map( faqs -> {
             faqs.setCategoryId(faq.getCategoryId());
             faqs.setSubject(faq.getSubject());
             faqs.setContent(faq.getContent());
             faqs.setModDate(faq.getModDate());
             return faqRepository.save(faqs);
-        }).orElseGet(() -> { // 없으면 지금 이 id로 새로 하나 만들어라
+        }).orElseGet(() -> {
             faq.setId(id);
             return faqRepository.save(faq);
         });
@@ -106,7 +105,6 @@ public class FaqServiceImpl implements FaqService {
         faqRepository.deleteById(id);
     }
 
-    // select * from tbl_faq where sbj like '%출%';
     @Override
     public List<Faq> searchFaq(String keyword) {
         String jpql = "select f from Faq f where f.subject like '%" + keyword + "%'";

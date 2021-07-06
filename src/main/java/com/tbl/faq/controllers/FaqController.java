@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.constraints.Min;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,16 +27,6 @@ public class FaqController {
     public void setFaqService(FaqService faqService) {
         this.faqService = faqService;
     }
-
-// Git test 하면서 이거 다시 없애기
-// 컴포넌트빌더 쓰는방식..뭔가 이상하고..어렵다..더 알고나서 써야할듯
-//    @PostMapping("/faqList")
-//    public Faq createFaq(@RequestBody final Faq faq, final UriComponentsBuilder uriComponentsBuilder) {
-//        System.err.println("FaqController createFaq");
-//        return faqService.createFaq(faq);
-//    }
-
-
     // Create
     @PostMapping("/faqSave")
     public void saveFaq(@RequestBody final Faq faq) {
@@ -101,7 +90,7 @@ public class FaqController {
     private List<Faq> filterAndSort() {
         List<Faq> faqList = null;
         switch (sortDateMethod) {
-            case "ASC": // 이걸 구분하려면
+            case "ASC":
                 faqList = faqService.sortFaqAsc();
                 break;
             case "DESC":
