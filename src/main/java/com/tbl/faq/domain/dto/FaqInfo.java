@@ -1,5 +1,6 @@
-package com.tbl.faq.entity;
+package com.tbl.faq.domain.dto;
 
+import com.tbl.faq.domain.dao.TblFaq;
 import lombok.*;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class FaqResult {
+public class FaqInfo {
 
     private int id;
 
@@ -28,7 +29,7 @@ public class FaqResult {
 
     private boolean actYn;
 
-    private List<Faq> result;
+    private List<TblFaq> result;
 
 }
 

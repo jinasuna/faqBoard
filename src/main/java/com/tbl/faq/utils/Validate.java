@@ -1,9 +1,4 @@
-package com.tbl.faq.util;
-
-import lombok.NonNull;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
+package com.tbl.faq.utils;
 
 public class Validate {
     public static void isTrue(boolean isTrue, String msg){

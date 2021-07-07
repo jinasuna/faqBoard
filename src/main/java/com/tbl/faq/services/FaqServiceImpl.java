@@ -1,10 +1,10 @@
-package com.tbl.faq.service;
+package com.tbl.faq.services;
 
-import com.tbl.faq.entity.Faq;
-import com.tbl.faq.entity.FaqResult;
+import com.tbl.faq.domain.dao.TblFaq;
+import com.tbl.faq.domain.dto.FaqInfo;
 import com.tbl.faq.repository.FaqRepository;
 
-import com.tbl.faq.util.Validate;
+import com.tbl.faq.utils.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,12 +38,12 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override @Transactional
-    public List<FaqResult> getFaqList(Integer page, Integer size) {
-        Page<Faq> faqBoard = faqRepository.findAll(PageRequest.of(page, size));
+    public List<FaqInfo> getFaqList(Integer page, Integer size) {
+        Page<TblFaq> faqBoard = faqRepository.findAll(PageRequest.of(page, size));
         Validate.isTrue(!faqBoard.isEmpty(), "결과가 없습니다.");
 
-        List<FaqResult> faqList = faqBoard.getContent().stream().map(faq ->
-                sourceToDestination(faq, new FaqResult())
+        List<FaqInfo> faqList = faqBoard.getContent().stream().map(faq ->
+                sourceToDestination(faq, new FaqInfo())
         ).collect(Collectors.toList());
 
         return faqList;
@@ -58,24 +58,24 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public void saveFaq(Faq faq) {
+    public void saveFaq(TblFaq faq) {
         faqRepository.save(faq);
     }
 
     @Override
-    public List<Faq> findAll(){
-        List<Faq> list = faqRepository.findAll();
+    public List<TblFaq> findAll(){
+        List<TblFaq> list = faqRepository.findAll();
 
-        for(Faq faq : list){
+        for(TblFaq faq : list){
             System.out.println(faq.toString());
         }
         return list;
     }
 
     @Override
-    public Optional<Faq> findOne(int id){
-        Optional<Faq> faq = faqRepository.findById(id);
-        Faq res = faq.orElse(new Faq());
+    public Optional<TblFaq> findOne(int id){
+        Optional<TblFaq> faq = faqRepository.findById(id);
+        TblFaq res = faq.orElse(new TblFaq());
         int cnt = res.getViewCnt();
         res.setViewCnt(++cnt);
         faqRepository.save(res);
@@ -84,7 +84,7 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public void updateFaq(int id, Faq faq){
+    public void updateFaq(int id, TblFaq faq){
         System.err.println("FaqService faqService");
         System.out.println(faq.toString());
         faqRepository.findById(id).map( faqs -> {
@@ -106,12 +106,12 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public List<Faq> searchFaq(String keyword) {
-        String jpql = "select f from Faq f where f.subject like '%" + keyword + "%'";
+    public List<TblFaq> searchFaq(String keyword) {
+        String jpql = "select f from TblFaq f where f.subject like '%" + keyword + "%'";
         tx.begin();
         try{ // 1.
             System.err.println("FaqService faqService");
-            List<Faq> result = em.createQuery(jpql, Faq.class)
+            List<TblFaq> result = em.createQuery(jpql, TblFaq.class)
                     .getResultList();
             tx.commit();
             return result;
@@ -124,14 +124,14 @@ public class FaqServiceImpl implements FaqService {
     }
 
     @Override
-    public List<Faq> sortFaqAsc() {
-        List<Faq> list = faqRepository.findAll(Sort.by(Sort.Direction.ASC, "regDate"));
+    public List<TblFaq> sortFaqAsc() {
+        List<TblFaq> list = faqRepository.findAll(Sort.by(Sort.Direction.ASC, "regDate"));
         return list;
     }
 
     @Override
-    public List<Faq> sortFaqDesc() {
-        List<Faq> list = faqRepository.findAll(Sort.by(Sort.Direction.DESC, "regDate"));
+    public List<TblFaq> sortFaqDesc() {
+        List<TblFaq> list = faqRepository.findAll(Sort.by(Sort.Direction.DESC, "regDate"));
         return list;
     }
 
