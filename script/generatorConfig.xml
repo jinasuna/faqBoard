@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="lib/mysql-connector-java-8.0.18.jar" />
+
+    <context id="Mysql" targetRuntime="MyBatis3DynamicSql" defaultModelType="hierarchical">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <!--        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin" />-->
+        <!--        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin" />-->
+        <commentGenerator type="org.mybatis.generator.internal.DefaultCommentGenerator">
+            <property name="suppressAllComments" value="false"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/posco_db1?useSSL-false&amp;serverTimezone=Asia/Seoul"
+                        userId="root"
+                        password="1234">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.iconloop.posco.domain.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+            <!--            added-->
+            <property name="constructorBased" value="false" />
+        </javaModelGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.iconloop.posco.domain.mappers" targetProject="src/main/java" />
+
+        <table tableName="TBL_FAQ">
+            <generatedKey column="FAQ_ID" sqlStatement="JDBC" identity="true" />
+        </table>
+        <!--        <table tableName="TBL_FAQ_CTGR">-->
+        <!--            <generatedKey column="FAQ_CTGR_ID" sqlStatement="JDBC" identity="true" />-->
+        <!--            <columnOverride column="ACT_YN" javaType="java.lang.Boolean" jdbcType="CHAR" />-->
+        <!--        </table>-->
+
+        <!--        <table tableName="TBL_FAQ">-->
+        <!--            <generatedKey column="FAQ_ID" sqlStatement="JDBC" identity="true" />-->
+        <!--            <columnOverride column="ACT_YN" javaType="java.lang.Boolean" jdbcType="CHAR" />-->
+        <!--        </table>-->
+
+    </context>
+</generatorConfiguration>

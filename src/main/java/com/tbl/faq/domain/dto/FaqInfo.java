@@ -1,6 +1,5 @@
 package com.tbl.faq.domain.dto;
 
-import com.tbl.faq.domain.dao.TblFaq;
 import lombok.*;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +28,7 @@ public class FaqInfo {
 
     private boolean actYn;
 
-    private List<TblFaq> result;
+    //private List<TblFaq> result;
 
 }
 
