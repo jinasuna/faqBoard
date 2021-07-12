@@ -1,4 +1,4 @@
-package com.tbl.faq.entity;
+package com.tbl.faq.domain.dao;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name="tbl_faq")
-public class Faq {
+public class TblFaq {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +44,8 @@ public class Faq {
     private boolean actYn;
 
     @Builder
-    public Faq(int id, int categoryId, boolean openType, String subject, String content,
-               int viewCnt, boolean actYn){
+    public TblFaq(int id, int categoryId, boolean openType, String subject, String content,
+                  int viewCnt, boolean actYn){
         super();
         this.id = id;
         this.categoryId = categoryId;
